@@ -16,4 +16,4 @@
 ```
 $ [ExeFilePath]/MPM3D.exe [InputFilePath]/inputfile.xml
 ```
-- Import the results into Paraview for visualization
+- Import the results into Paraview or Techplot for visualization
