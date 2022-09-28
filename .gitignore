@@ -10,6 +10,18 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+*.cmake
+*.vcxproj*
+*.sln
+*.log
+*.tlog
+*.recipe
+*.pdb
+*.ilk
+build/.vs/*
+
+# VSCode ================================
+.vscode/*
 
 # C++ ==================================
 # Prerequisites

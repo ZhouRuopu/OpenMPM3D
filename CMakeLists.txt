@@ -17,7 +17,7 @@ set(${PROJECT_NAME}_VERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_M
 set(${PROJECT_NAME}_VERSION_FULL ${${PROJECT_NAME}_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL})
 
 #################### set default cmake build type to Release ####################
-if(not CMAKE_BUILD_TYPE)
+if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE PATH "MPM3D build type" FORCE)
 endif()
 
@@ -44,7 +44,7 @@ if(FVM_SOLVER)
 endif()
 
 #################### build MPM3D with double precision ####################
-if(not MPM3D_USE_DOUBLE)
+if(NOT MPM3D_USE_DOUBLE)
     option(MPM3D_USE_DOUBLE "Build double precision version." ON)
 endif()
 
@@ -53,7 +53,7 @@ if(MPM3D_USE_DOUBLE)
 endif()
 
 #################### build MPM3D with massive particles ####################
-if(not MPM3D_MASSIVE_PARTICLE)
+if(NOT MPM3D_MASSIVE_PARTICLE)
     option(MPM3D_MASSIVE_PARTICLE "Build massive particles version" OFF)
 endif()
 
@@ -79,6 +79,7 @@ if(MPM3D_USE_VTKDATA)
     find_package(VTK)
     if(VTK_USE_FILE)
         include(${VTK_USE_FILE})
+        include_directories(${VTK_INCLUDE_DIRS})
     else()
         message(FATAL_ERROR "Please set VTK_DIR.")
     endif()
