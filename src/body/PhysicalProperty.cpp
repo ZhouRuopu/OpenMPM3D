@@ -73,13 +73,3 @@ void PhysicalProperty::AllocateMemoryForExtraParticleProperty(int number)
     for (int i = 0; i < number; i++)
         _extra_properties[i] = 0.0;
 }
-
-MPM_FLOAT& PhysicalProperty::operator[] (int index)
-{
-    return _extra_properties[_extra_property_positions[index]];
-}
-
-void PhysicalProperty::UpdateVolume(MPM_FLOAT (&de)[6])
-{
-    _volume *= (1 + de[0] + de[1] + de[2]);
-}

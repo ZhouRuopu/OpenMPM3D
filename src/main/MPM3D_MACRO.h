@@ -30,6 +30,8 @@ using namespace std;
 
 #define __min(x, y) (x < y?x:y)
 #define __max(x, y) (x > y?x:y)
+#define __min3(x, y, z) (__min(__min(x, y), z))
+#define __max3(x, y, z) (__max(__max(x, y), z))
 
 #define MPM3D_ErrorMessage(msg) \
     cout << "(MPM3D)Runtime Error in " << __FILE__ << " line " << __LINE__ << ":\n    " << msg << "\n"
@@ -40,12 +42,14 @@ using namespace std;
     #define MPM_MIN         DBL_MIN
     #define MPM_MAX         DBL_MAX
     #define PI              3.14159265358979323846
+    #define SQRT3           1.7320508075688773
 #else
     #define MPM_FLOAT       float
     #define MPM_EPSILON     FLT_EPSILON
     #define MPM_MIN         FLT_MIN
     #define MPM_MAX         FLT_MAX
-    #define PI              3.14159265359F
+    #define PI              3.1415926536F
+    #define SQRT3           1.7320508076F
 #endif
 
 #ifdef _MPM_MASSIVE_PARTICLE

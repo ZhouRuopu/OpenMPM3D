@@ -33,10 +33,16 @@ public:
     void AllocateMemoryForExtraParticleProperty(int number);
 
     //!> override operator [] to get extra particle property
-    inline MPM_FLOAT& operator[] (int index);
+    inline MPM_FLOAT& operator[] (int index)
+    {
+        return _extra_properties[_extra_property_positions[index]];
+    }
 
     //!> Update the volume based on the incremental volumetric strain
-    inline void UpdateVolume(MPM_FLOAT (&de)[6]);
+    inline void UpdateVolume(MPM_FLOAT (&de)[6])
+    {
+        _volume *= (1 + de[0] + de[1] + de[2]);
+    }
 
     //!> various Get/Set function
     inline MPM_FLOAT GetMass() {return _mass;};

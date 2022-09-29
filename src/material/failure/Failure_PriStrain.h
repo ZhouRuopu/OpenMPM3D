@@ -13,47 +13,39 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Base class definition for failure behavior of 
-        material
+    Info: Class definition for failure behavior of 'Maximum 
+        Principle Strain'
     Code-writter: Ruichen Ni
-    Date: 2022.9.28
+    Date: 2022.9.29
 ==============================================================*/
 
-#ifndef _FAILURE_BASE_H_
-#define _FAILURE_BASE_H_
+#ifndef _FAILURE_PRISTRAIN_H_
+#define _FAILURE_PRISTRAIN_H_
 
-#include "../../main/MPM3D_MACRO.h"
-#include "../../body/PhysicalProperty.h"
+#include "Failure_Base.h"
 
-void CubicFunctionSolution(MPM_FLOAT a, MPM_FLOAT b, MPM_FLOAT c, MPM_FLOAT d, MPM_FLOAT (&roots)[3]);
-
-class Failure_Base
+class Failure_PriStrain: public Failure_Base
 {
 public:
-    Failure_Base();
-    ~Failure_Base();
-
-    inline string GetName() {return Type;};
-
-    inline void SetErosion(bool erosion) {Erosion = erosion;};
+    Failure_PriStrain();
+    ~Failure_PriStrain();
 
     //!> Identify if the particle fails according to its physical property
-    virtual bool CheckFailure(PhysicalProperty* pp) = 0;
+    virtual bool CheckFailure(PhysicalProperty* pp);
 
     //!> Write failure model information into file
-    virtual void Write(ofstream &os) = 0;
+    virtual void Write(ofstream &os);
 
     //!> Initial the Failure model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
 
     //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp) = 0;
-protected:
-    string Type;                            //!< Failure Behavior Type
-    bool Erosion;                           //!< whether to erode particles when failed
-    
-    //!> Failure model parameters for initialization
-    map<string, MPM_FLOAT*> ParameterMap_Failure;   
+    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
+private:
+    //!> Threshold of principle strain
+    MPM_FLOAT _min_principle_strain;
+    MPM_FLOAT _max_principle_strain;
+    MPM_FLOAT _max_shear_strain;
 };
 
 #endif
