@@ -48,6 +48,12 @@ using namespace std;
     #define PI              3.14159265359F
 #endif
 
+#ifdef _MPM_MASSIVE_PARTICLE
+    #define MPM_STATS       unsigned long
+#else
+    #define MPM_STATS       unsigned int
+#endif
+
 namespace MPM{
     const string ProgramType = "MPM3D-CPP";
     const string MPM3DVersion = "1.";       //!< Release version
@@ -64,12 +70,19 @@ namespace MPM{
     };
 
     //!> Number of extra particle properties
-    const unsigned int ExtraParticlePropertySum = 2;
+    const int ExtraParticlePropertySum = 15;
     //!> Extra property list
     enum ExtraParticleProperty
     {
-        kelvin,     //!< absolute temperature
-        DMG         //!< cumulative damage for failure
+        SDxx, SDxy, SDxz,
+              SDyy, SDyz,
+                    SDzz,   //!< Deviatoric stress
+        Exx, Exy, Exz,
+             Eyy, Eyz,
+                  Ezz,      //!< Strain
+        epeff,              //!< effective plastic strian
+        kelvin,             //!< absolute temperature
+        DMG                 //!< cumulative damage for failure
     };
 }
 #endif

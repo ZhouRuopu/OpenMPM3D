@@ -13,44 +13,36 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Base class definition for failure behavior of 
-        material
+    Info: Class definition for failure behavior of 'Effective
+        Plastic Strain'
     Code-writter: Ruichen Ni
-    Date: 2022.9.28
+    Date: 2022.9.29
 ==============================================================*/
 
-#ifndef _FAILURE_BASE_H_
-#define _FAILURE_BASE_H_
+#ifndef _FAILURE_PLASTRAIN_H_
+#define _FAILURE_PLASTRAIN_H_
 
-#include "../../main/MPM3D_MACRO.h"
-#include "../../body/PhysicalProperty.h"
-class Failure_Base
+#include "Failure_Base.h"
+class Failure_PlaStrain: public Failure_Base
 {
 public:
-    Failure_Base();
-    ~Failure_Base();
-
-    inline string GetName() {return Type;};
-
-    inline void SetErosion(bool erosion) {Erosion = erosion;};
+    Failure_PlaStrain();
+    ~Failure_PlaStrain();
 
     //!> Identify if the particle fails according to its physical property
-    virtual bool CheckFailure(PhysicalProperty* pp) = 0;
+    virtual bool CheckFailure(PhysicalProperty* pp);
 
     //!> Write failure model information into file
-    virtual void Write(ofstream &os) = 0;
+    virtual void Write(ofstream &os);
 
     //!> Initial the Failure model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
 
     //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp) = 0;
-protected:
-    string Type;                            //!< Failure Behavior Type
-    bool Erosion;                           //!< whether to erode particles when failed
-    
-    //!> Failure model parameters for initialization
-    map<string, MPM_FLOAT*> ParameterMap_Failure;   
+    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
+private:
+    //!> Threshold of effective plastic strain
+    MPM_FLOAT _epmax;
 };
 
 #endif

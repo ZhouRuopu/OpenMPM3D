@@ -1,0 +1,70 @@
+/*==============================================================
+                            MPM3D-CPP
+    C-plus-plus code for 3-Dimensional Material Point Method
+================================================================
+    Copyright (C) 2022 - 
+
+    Computational Dynamics Group
+    Department of Engineering Mechanics
+    School of Aerospace Engineering
+    Tsinghua Univeristy
+    Beijing 100084, P. R. China
+
+    Corresponding Author: Xiong Zhang
+    E-mail: xzhang@tsinghua.edu.cn
+================================================================
+    Info: Implementation of class 'Failure_PlaStrain'
+    Code-writter: Ruichen Ni
+    Date: 2022.9.29
+==============================================================*/
+
+#include "Failure_PlaStrain.h"
+Failure_PlaStrain::Failure_PlaStrain()
+{
+    Type = "Effective Plastic Strain";
+    _epmax = 0.0;
+
+    ParameterMap_Failure["epmax"] = &_epmax;
+}
+
+Failure_PlaStrain::~Failure_PlaStrain()
+{
+}
+
+bool Failure_PlaStrain::CheckFailure(PhysicalProperty* pp)
+{
+    if ((*pp)[MPM::epeff] > _epmax)
+    {
+        pp->Failed();
+        if (Erosion)
+            pp->Eroded();
+    }
+
+    return pp->is_Failed();
+}
+
+void Failure_PlaStrain::Write(ofstream &os)
+{
+    os << "Failure model: " << Type << endl;
+    os << "epmax: " << _epmax << endl;
+    os << "Erosion: " << Erosion << endl;
+}
+
+bool Failure_PlaStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
+{
+    if (!Failure_Base::Initialize(failure_para))
+        return false;
+    
+    if (_epmax <= MPM_EPSILON)
+    {
+        MPM3D_ErrorMessage("*** INPUT ERROR *** epmax should be greater than zero.");
+        return false;
+    }
+    return true;
+}
+
+bool Failure_PlaStrain::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
+{
+    ExtraProp.push_back(MPM::epeff);
+    return true;
+}
