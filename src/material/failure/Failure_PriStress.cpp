@@ -15,7 +15,7 @@
 ================================================================
     Info: Implementation of class 'Failure_PriStress'
     Code-writter: Ruichen Ni
-    Date: 2022.9.29
+    Date: 2022.10.4
 ==============================================================*/
 
 #include "Failure_PriStress.h"

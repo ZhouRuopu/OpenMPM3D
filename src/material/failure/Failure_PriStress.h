@@ -16,7 +16,7 @@
     Info: Class definition for failure behavior of 'Maximum 
         Principle Stress'
     Code-writter: Ruichen Ni
-    Date: 2022.9.29
+    Date: 2022.10.4
 ==============================================================*/
 
 #ifndef _FAILURE_PRISTRESS_H_
