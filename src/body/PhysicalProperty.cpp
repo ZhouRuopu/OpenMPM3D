@@ -1,5 +1,5 @@
 /*==============================================================
-                            MPM3D-CPP
+                            OpenMPM3D
     C-plus-plus code for 3-Dimensional Material Point Method
 ================================================================
     Copyright (C) 2022 - 
