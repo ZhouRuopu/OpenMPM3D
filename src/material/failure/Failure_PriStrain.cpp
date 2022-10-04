@@ -38,7 +38,7 @@ Failure_PriStrain::~Failure_PriStrain()
 
 bool Failure_PriStrain::CheckFailure(PhysicalProperty* pp)
 {
-    MPM_FLOAT principle_strain[3];
+    Array3D principle_strain;
     MPM_FLOAT I_1 = (*pp)[MPM::Exx] + (*pp)[MPM::Eyy] + (*pp)[MPM::Ezz];
     MPM_FLOAT I_2 = -0.5*(I_1*I_1 - ((*pp)[MPM::Exx]*(*pp)[MPM::Exx] +
         (*pp)[MPM::Eyy]*(*pp)[MPM::Eyy] + (*pp)[MPM::Ezz]*(*pp)[MPM::Ezz] +
@@ -50,28 +50,29 @@ bool Failure_PriStrain::CheckFailure(PhysicalProperty* pp)
               (*pp)[MPM::Eyy]*(*pp)[MPM::Exz]*(*pp)[MPM::Exz] - 
               (*pp)[MPM::Ezz]*(*pp)[MPM::Exy]*(*pp)[MPM::Exy]);
               
-    CubicFunctionSolution(1.0, -I_1, -I_2, -I_3, principle_strain);
+    CubicFunctionRoots(1.0, -I_1, -I_2, -I_3, principle_strain);
     bool failure;
     if (_min_principle_strain < -MPM_EPSILON)
     {
-        MPM_FLOAT min_principle_strain = __min3(principle_strain[0], principle_strain[1], principle_strain[2]);
+        MPM_FLOAT min_principle_strain = *min_element(principle_strain.begin(), principle_strain.end());
         if (min_principle_strain < MPM_EPSILON && min_principle_strain < _min_principle_strain)
             failure = true;
     }
 
     if (_max_principle_strain > MPM_EPSILON)
     {
-        MPM_FLOAT max_principle_strain = __max3(principle_strain[0], principle_strain[1], principle_strain[2]);
+        MPM_FLOAT max_principle_strain = *max_element(principle_strain.begin(), principle_strain.end());
         if (max_principle_strain > MPM_EPSILON && max_principle_strain > _min_principle_strain)
             failure = true;
     }
 
     if (_max_shear_strain > MPM_EPSILON)
     {
-        MPM_FLOAT max_shear_strain = __max3(
-            fabs(principle_strain[0] - principle_strain[1])*0.5, 
-            fabs(principle_strain[1] - principle_strain[2])*0.5,
-            fabs(principle_strain[2] - principle_strain[0])*0.5);
+        Array3D shear_strain;
+        shear_strain[0] = fabs(principle_strain[0] - principle_strain[1])*0.5;
+        shear_strain[1] = fabs(principle_strain[1] - principle_strain[2])*0.5;
+        shear_strain[2] = fabs(principle_strain[2] - principle_strain[0])*0.5;
+        MPM_FLOAT max_shear_strain = *max_element(shear_strain.begin(), shear_strain.end());
         if (max_shear_strain > MPM_EPSILON && max_shear_strain > _max_shear_strain)
             failure = true;
     }
@@ -101,19 +102,22 @@ bool Failure_PriStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
     
     if (_min_principle_strain >= -MPM_EPSILON)
     {
-        MPM3D_ErrorMessage("*** INPUT ERROR *** min_principle_strain should be less than zero.");
+        MPM3D_ErrorMessage(__FILE__, __LINE__, 
+            "*** INPUT ERROR *** min_principle_strain should be less than zero.");
         return false;
     }
 
     if (_max_principle_strain <= MPM_EPSILON)
     {
-        MPM3D_ErrorMessage("*** INPUT ERROR *** max_principle_strain should be greater than zero.");
+        MPM3D_ErrorMessage(__FILE__, __LINE__, 
+            "*** INPUT ERROR *** max_principle_strain should be greater than zero.");
         return false;
     }
 
     if (_max_shear_strain <= MPM_EPSILON)
     {
-        MPM3D_ErrorMessage("*** INPUT ERROR *** max_shear_strain should be greater than zero.");
+        MPM3D_ErrorMessage(__FILE__, __LINE__, 
+            "*** INPUT ERROR *** max_shear_strain should be greater than zero.");
         return false;
     }
     return true;

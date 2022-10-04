@@ -57,7 +57,8 @@ bool Failure_PlaStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
     
     if (_epmax <= MPM_EPSILON)
     {
-        MPM3D_ErrorMessage("*** INPUT ERROR *** epmax should be greater than zero.");
+        MPM3D_ErrorMessage(__FILE__, __LINE__, 
+            "*** INPUT ERROR *** epmax should be greater than zero.");
         return false;
     }
     return true;

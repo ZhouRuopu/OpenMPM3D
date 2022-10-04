@@ -25,8 +25,6 @@
 #include "../../main/MPM3D_MACRO.h"
 #include "../../body/PhysicalProperty.h"
 
-void CubicFunctionSolution(MPM_FLOAT a, MPM_FLOAT b, MPM_FLOAT c, MPM_FLOAT d, MPM_FLOAT (&roots)[3]);
-
 class Failure_Base
 {
 public:
