@@ -51,6 +51,9 @@ public:
     inline MPM_FLOAT GetVolume() {return _volume;};
     inline void SetVolume(MPM_FLOAT vol) {_volume = vol;};
 
+    inline MPM_FLOAT GetMeanStress() {return _mean_stress;};
+    inline void SetMeanStress(MPM_FLOAT SM) {_mean_stress = SM;};
+
     inline MPM_FLOAT GetBulkViscosity() {return _bulk_q;};
     inline void SetBulkViscosity(MPM_FLOAT q) {_bulk_q = q;};
 
