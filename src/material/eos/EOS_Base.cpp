@@ -22,7 +22,6 @@
 EOS_Base::EOS_Base()
 {
     Type = "";
-    _G = 0.0;
     _density_0 = 0.0;
     _sound_speed_0 = 0.0;
     _internal_energy_0 = 0.0;

@@ -30,7 +30,6 @@ public:
     ~EOS_Base();
 
     inline string GetName() {return Type;}
-    inline void SetShearModulus(MPM_FLOAT G) {_G = G;}
     inline void SetReferenceDensity(MPM_FLOAT rho) {_density_0 = rho;}
 
     //!> Initial the EOS model with parameters' map
@@ -40,13 +39,12 @@ public:
     virtual void Write(ofstream &os) = 0;
 
     //!> Update the pressure of the particle
-    virtual void UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol, MPM_FLOAT delta_ie) = 0;
+    virtual void UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, MPM_FLOAT delta_ie) = 0;
 
-    //!> Calculate the adabatic sound speed
-    virtual void SoundSpeed(PhysicalProperty* pp) = 0;
+    //!> Calculate the squared adabatic sound speed of EOS part
+    virtual MPM_FLOAT SoundSpeedSquare_EOS(PhysicalProperty* pp) = 0;
 protected:
     string Type;
-    MPM_FLOAT _G;                   //!< Shear Modulus
     MPM_FLOAT _density_0;           //!< initial density
     MPM_FLOAT _sound_speed_0;       //!< initial sound speed
     MPM_FLOAT _internal_energy_0;   //!< initial internal energy per reference specific volume

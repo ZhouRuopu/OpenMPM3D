@@ -37,6 +37,7 @@ using namespace std;
     const MPM_FLOAT MPM_MAX =       DBL_MAX;
     const MPM_FLOAT PI =            3.14159265358979323846;
     const MPM_FLOAT SQRT3 =         1.7320508075688773;
+    constexpr MPM_FLOAT FourThird = 4.0/3.0;
 #else
     typedef float MPM_FLOAT;
     const MPM_FLOAT MPM_EPSILON =   FLT_EPSILON;
@@ -44,6 +45,7 @@ using namespace std;
     const MPM_FLOAT MPM_MAX =       FLT_MAX;
     const MPM_FLOAT PI =            3.1415926536F;
     const MPM_FLOAT SQRT3 =         1.7320508076F;
+    constexpr MPM_FLOAT FourThird = 4.0F/3.0F;
 #endif
 
 #ifdef _MPM_MASSIVE_PARTICLE

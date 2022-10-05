@@ -42,6 +42,7 @@ public:
     inline void UpdateVolume(MPM_FLOAT (&de)[6])
     {
         _volume *= (1 + de[0] + de[1] + de[2]);
+        _density = _mass/_volume;
     }
 
     //!> various Get/Set function
@@ -50,6 +51,9 @@ public:
 
     inline MPM_FLOAT GetVolume() {return _volume;};
     inline void SetVolume(MPM_FLOAT vol) {_volume = vol;};
+
+    inline MPM_FLOAT GetDensity() {return _density;};
+    inline void SetDensity(MPM_FLOAT rho) {_density = rho;};
 
     inline MPM_FLOAT GetMeanStress() {return _mean_stress;};
     inline void SetMeanStress(MPM_FLOAT SM) {_mean_stress = SM;};
@@ -71,6 +75,7 @@ public:
 private:
     MPM_FLOAT _mass;
     MPM_FLOAT _volume;
+    MPM_FLOAT _density;
     MPM_FLOAT _mean_stress;
     MPM_FLOAT _bulk_q;          //!< artificial bulk viscosity
     MPM_FLOAT _internal_energy;
