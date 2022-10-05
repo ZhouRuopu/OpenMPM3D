@@ -5,3 +5,5 @@
 #include "eos/EOS_Gruneisen.h"
 
 #include "eos/EOS_SimpleGruneisen.h"
+
+#include "eos/EOS_JWL.h"
