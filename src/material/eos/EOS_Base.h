@@ -30,10 +30,9 @@ public:
     ~EOS_Base();
 
     inline string GetName() {return Type;}
-    inline void SetReferenceDensity(MPM_FLOAT rho) {_density_0 = rho;}
 
     //!> Initial the EOS model with parameters' map
-    virtual bool Initialize(map<string, MPM_FLOAT> &eos_para);
+    virtual bool Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0);
 
     //!> Write EOS model information into file
     virtual void Write(ofstream &os) = 0;

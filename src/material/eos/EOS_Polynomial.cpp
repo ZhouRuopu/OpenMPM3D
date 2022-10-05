@@ -37,6 +37,22 @@ EOS_Polynomial::~EOS_Polynomial()
 {
 }
 
+bool EOS_Polynomial::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+{
+    if (!EOS_Base::Initialize(eos_para, rho0))
+        return false;
+    _sound_speed_0 = sqrt((_c1 + _c5*_internal_energy_0)/_density_0);
+    return true;
+}
+
+void EOS_Polynomial::Write(ofstream& os)
+{
+    os << "EOS Type: " << Type << endl;
+    os << "c0          c1          c2          c3          c4          c5          c6          E0" << endl;
+    os << _c0 << " " << _c1 << " " << _c2 << " " << _c3 << " " << _c4 << " " << _c5 << " " << _c6 << " " << _internal_energy_0 << endl;
+    os << "Initial sound speed: " << _sound_speed_0 << endl << endl;
+}
+
 void EOS_Polynomial::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, MPM_FLOAT delta_ie)
 {
     MPM_FLOAT V0 = pp->GetMass()/_density_0;

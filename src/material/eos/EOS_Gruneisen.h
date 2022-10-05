@@ -13,21 +13,21 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Class definition for Polynomial EOS model
+    Info: Class definition for Gruneisen EOS model
     Code-writter: Ruichen Ni
     Date: 2022.10.5
 ==============================================================*/
 
-#ifndef _EOS_POLYNOMIAL_H_
-#define _EOS_POLYNOMIAL_H_
+#ifndef _EOS_GRUNEISEN_H_
+#define _EOS_GRUNEISEN_H_
 
 #include "EOS_Base.h"
 
-class EOS_Polynomial: public EOS_Base
+class EOS_Gruneisen: public EOS_Base
 {
 public:
-    EOS_Polynomial();
-    ~EOS_Polynomial();
+    EOS_Gruneisen();
+    ~EOS_Gruneisen();
 
     //!> Initial the EOS model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0);
@@ -41,9 +41,19 @@ public:
     //!> Calculate the squared adabatic sound speed of EOS part
     virtual MPM_FLOAT SoundSpeedSquare_EOS(PhysicalProperty* pp);
 private:
-    //!> parameters for polynomial EOS
-    //!> p = c0 + c1*mu + c2*mu^2 + c3*mu^3 + (c4 + c5*mu + c6*mu^2)*E
-    MPM_FLOAT _c0, _c1, _c2, _c3, _c4, _c5, _c6;
+    //!> parameters for Gruneisen EOS
+    //!> p = rho0*c0^2*mu*(1+mu)/(1-(s-1)*mu)^2
+    MPM_FLOAT _s;       //!< Slope in shock velocity and particle velocity: u_s = c_0 + s*u_p
+    MPM_FLOAT _gamma0;  //!< Initial Gruneisen gamma: _gamma0 ~ 2*_s - 1
+    
+    MPM_FLOAT _impendence_0;    //!< rho0*c0*c0
+
+    //!> default 0.9. pressure -> \infty when mu -> 1/(s-1). 
+    //!> If mu > _cutoff/(s-1), use linear interpolation to update pressure
+    MPM_FLOAT _cutoff;  
+    MPM_FLOAT _mu_cutoff;
+    MPM_FLOAT _pH_cutoff;
+    MPM_FLOAT _DpH_cutoff;
 };
 
 #endif

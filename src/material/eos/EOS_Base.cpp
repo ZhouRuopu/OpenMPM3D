@@ -34,7 +34,7 @@ EOS_Base::~EOS_Base()
 {
 }
 
-bool EOS_Base::Initialize(map<string, MPM_FLOAT> &eos_para)
+bool EOS_Base::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
 {
     for(map<string, MPM_FLOAT>::iterator iter = eos_para.begin(); 
         iter != eos_para.end(); iter++)
@@ -48,5 +48,7 @@ bool EOS_Base::Initialize(map<string, MPM_FLOAT> &eos_para)
             return false;
         }
     }
+
+    _density_0 = rho0;
     return true;
 }
