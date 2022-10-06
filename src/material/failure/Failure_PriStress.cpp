@@ -38,6 +38,9 @@ Failure_PriStress::~Failure_PriStress()
 
 bool Failure_PriStress::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
+    if (pp->is_Failed()) 
+        return true;
+
     Array3D principle_stress;
     MPM_FLOAT mean_stress = pp->GetMeanStress();
     MPM_FLOAT bulk_q = pp->GetBulkViscosity();

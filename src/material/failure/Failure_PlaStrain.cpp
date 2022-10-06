@@ -33,6 +33,9 @@ Failure_PlaStrain::~Failure_PlaStrain()
 
 bool Failure_PlaStrain::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
+    if (pp->is_Failed())
+        return true;
+    
     if ((*pp)[MPM::epeff] > _epmax)
     {
         pp->Failed();

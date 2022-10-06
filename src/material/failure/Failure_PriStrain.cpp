@@ -38,6 +38,9 @@ Failure_PriStrain::~Failure_PriStrain()
 
 bool Failure_PriStrain::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
+    if (pp->is_Failed())
+        return true;
+    
     Array3D principle_strain;
     MPM_FLOAT I_1 = (*pp)[MPM::Exx] + (*pp)[MPM::Eyy] + (*pp)[MPM::Ezz];
     MPM_FLOAT I_2 = -0.5*(I_1*I_1 - ((*pp)[MPM::Exx]*(*pp)[MPM::Exx] +
