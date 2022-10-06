@@ -48,6 +48,9 @@ public:
     //!> Calculate the principle stress
     Array3D&& CalculatePrincipleStress();
 
+    //!> Multiply the deviatoric stress with a scalar
+    void DeviatoricStressMultiplyScalar(MPM_FLOAT scalar);
+
 private:
     MPM_FLOAT _mass;
     MPM_FLOAT _volume;

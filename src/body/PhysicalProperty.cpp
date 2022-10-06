@@ -99,3 +99,9 @@ Array3D&& PhysicalProperty::CalculatePrincipleStress()
     CubicFunctionRoots(1.0, -I_1, -I_2, -I_3, result);
     return move(result);
 }
+
+void PhysicalProperty::DeviatoricStressMultiplyScalar(MPM_FLOAT scalar)
+{
+    for (auto& element : _deviatoric_stress)
+        element *= scalar;
+}
