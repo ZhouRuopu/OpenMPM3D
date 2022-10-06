@@ -41,17 +41,16 @@ bool Failure_PriStress::CheckFailure(PhysicalProperty* pp)
     Array3D principle_stress;
     MPM_FLOAT mean_stress = pp->GetMeanStress();
     MPM_FLOAT bulk_q = pp->GetBulkViscosity();
-    MPM_FLOAT stress_x = (*pp)[MPM::SDxx] + mean_stress - bulk_q;
-    MPM_FLOAT stress_y = (*pp)[MPM::SDyy] + mean_stress - bulk_q;
-    MPM_FLOAT stress_z = (*pp)[MPM::SDzz] + mean_stress - bulk_q;
+    SymTensor sd = pp->GetDeviatoricStress();
+    MPM_FLOAT stress_x = sd[0] + mean_stress - bulk_q;
+    MPM_FLOAT stress_y = sd[1] + mean_stress - bulk_q;
+    MPM_FLOAT stress_z = sd[2] + mean_stress - bulk_q;
 
     MPM_FLOAT I_1 = stress_x + stress_y + stress_z;
     MPM_FLOAT I_2 = -0.5*(I_1*I_1 - (stress_x*stress_x + stress_y*stress_y + stress_z*stress_z
-        + 2.0*((*pp)[MPM::SDxy]*(*pp)[MPM::SDxy] + (*pp)[MPM::SDxz]*(*pp)[MPM::SDxz] +
-               (*pp)[MPM::SDyz]*(*pp)[MPM::SDyz])));
-    MPM_FLOAT I_3 = stress_x*stress_y*stress_z + 2.0*(*pp)[MPM::SDxy]*(*pp)[MPM::SDyz]*(*pp)[MPM::SDxz]
-        - stress_x*(*pp)[MPM::SDyz]*(*pp)[MPM::SDyz] - stress_y*(*pp)[MPM::SDxz]*(*pp)[MPM::SDxz]
-        - stress_z*(*pp)[MPM::SDxy]*(*pp)[MPM::SDxy];
+        + 2.0*(sd[3]*sd[3] + sd[4]*sd[4] + sd[5]*sd[5])));
+    MPM_FLOAT I_3 = stress_x*stress_y*stress_z + 2.0*sd[3]*sd[4]*sd[5]
+        - stress_x*sd[3]*sd[3] - stress_y*sd[4]*sd[4] - stress_z*sd[5]*sd[5];
     
     CubicFunctionRoots(1.0, -I_1, -I_2, -I_3, principle_stress);
     bool failure = false;
@@ -121,11 +120,6 @@ bool Failure_PriStress::Initialize(map<string, MPM_FLOAT> &failure_para)
 
 bool Failure_PriStress::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
 {
-    ExtraProp.push_back(MPM::SDxx);
-    ExtraProp.push_back(MPM::SDxy);
-    ExtraProp.push_back(MPM::SDxz);
-    ExtraProp.push_back(MPM::SDyy);
-    ExtraProp.push_back(MPM::SDyz);
-    ExtraProp.push_back(MPM::SDzz);
+    // Nothing needs to be added
     return true;
 }

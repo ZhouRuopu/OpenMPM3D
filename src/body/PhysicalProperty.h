@@ -58,6 +58,9 @@ public:
     inline MPM_FLOAT GetMeanStress() {return _mean_stress;};
     inline void SetMeanStress(MPM_FLOAT SM) {_mean_stress = SM;};
 
+    inline SymTensor GetDeviatoricStress() {return _deviatoric_stress;}
+    inline void SetDeviatoricStress(SymTensor& sd) {_deviatoric_stress = sd;}
+
     inline MPM_FLOAT GetBulkViscosity() {return _bulk_q;};
     inline void SetBulkViscosity(MPM_FLOAT q) {_bulk_q = q;};
 
@@ -77,7 +80,8 @@ private:
     MPM_FLOAT _volume;
     MPM_FLOAT _density;
     MPM_FLOAT _mean_stress;
-    MPM_FLOAT _bulk_q;          //!< artificial bulk viscosity
+    SymTensor _deviatoric_stress;   //!< SDxx, SDyy, SDzz, SDyz, SDxz, SDxy in sequence
+    MPM_FLOAT _bulk_q;              //!< artificial bulk viscosity
     MPM_FLOAT _internal_energy;
     MPM_FLOAT _sound_speed;
     bool _failure;

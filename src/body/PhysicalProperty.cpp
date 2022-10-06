@@ -26,6 +26,7 @@ PhysicalProperty::PhysicalProperty()
     _volume = 0.0;
     _density = 0.0;
     _mean_stress = 0.0;
+    _deviatoric_stress.fill(0.0);
     _bulk_q = 0.0;
     _internal_energy = 0.0;
     _sound_speed = 0.0;
@@ -42,6 +43,7 @@ PhysicalProperty::PhysicalProperty(const PhysicalProperty& pp)
     _volume = pp._volume;
     _density = pp._density;
     _mean_stress = pp._mean_stress;
+    _deviatoric_stress = pp._deviatoric_stress;
     _bulk_q = pp._bulk_q;
     _internal_energy = pp._internal_energy;
     _sound_speed = pp._sound_speed;

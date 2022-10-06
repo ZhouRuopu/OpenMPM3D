@@ -55,6 +55,7 @@ using namespace std;
 #endif
 
 typedef array<MPM_FLOAT, 3> Array3D;
+typedef array<MPM_FLOAT, 6> SymTensor;
 
 namespace MPM{
     const string ProgramType = "MPM3D-CPP";
@@ -72,13 +73,10 @@ namespace MPM{
     };
 
     //!> Number of extra particle properties
-    const MPM_STATS ExtraParticlePropertySum = 15;
+    const MPM_STATS ExtraParticlePropertySum = 9;
     //!> Extra property list
     enum ExtraParticleProperty
     {
-        SDxx, SDxy, SDxz,
-              SDyy, SDyz,
-                    SDzz,   //!< Deviatoric stress
         Exx, Exy, Exz,
              Eyy, Eyz,
                   Ezz,      //!< Strain
