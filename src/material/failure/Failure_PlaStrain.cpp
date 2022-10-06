@@ -31,7 +31,7 @@ Failure_PlaStrain::~Failure_PlaStrain()
 {
 }
 
-bool Failure_PlaStrain::CheckFailure(PhysicalProperty* pp)
+bool Failure_PlaStrain::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
     if ((*pp)[MPM::epeff] > _epmax)
     {
@@ -47,7 +47,7 @@ void Failure_PlaStrain::Write(ofstream &os)
 {
     os << "Failure model: " << Type << endl;
     os << "epmax: " << _epmax << endl;
-    os << "Erosion: " << Erosion << endl;
+    os << "Erosion: " << Erosion << endl << endl;
 }
 
 bool Failure_PlaStrain::Initialize(map<string, MPM_FLOAT> &failure_para)

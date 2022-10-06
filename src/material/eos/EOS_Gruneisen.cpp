@@ -63,7 +63,8 @@ void EOS_Gruneisen::Write(ofstream& os)
     os << _sound_speed_0 << " " << _s << " " << _gamma0 << " " << _cutoff << endl << endl;
 }
 
-void EOS_Gruneisen::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, MPM_FLOAT delta_ie)
+void EOS_Gruneisen::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, 
+    MPM_FLOAT delta_ie, map<string, MPM_FLOAT>& transfer)
 {
     MPM_FLOAT V0 = pp->GetMass()/_density_0;
     MPM_FLOAT E = (pp->GetInternalEnergy() + delta_ie)/V0;

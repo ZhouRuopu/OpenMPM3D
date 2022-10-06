@@ -36,7 +36,7 @@ Failure_PriStrain::~Failure_PriStrain()
 {
 }
 
-bool Failure_PriStrain::CheckFailure(PhysicalProperty* pp)
+bool Failure_PriStrain::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
     Array3D principle_strain;
     MPM_FLOAT I_1 = (*pp)[MPM::Exx] + (*pp)[MPM::Eyy] + (*pp)[MPM::Ezz];
@@ -85,7 +85,7 @@ void Failure_PriStrain::Write(ofstream &os)
     os << "PriStrainMin: " << _min_principle_strain << endl;
     os << "PriStrainMax: " << _max_principle_strain << endl;
     os << "ShearStrainMax: " << _max_shear_strain << endl;
-    os << "Erosion: " << Erosion << endl;
+    os << "Erosion: " << Erosion << endl << endl;
 }
 
 bool Failure_PriStrain::Initialize(map<string, MPM_FLOAT> &failure_para)

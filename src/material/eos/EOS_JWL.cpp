@@ -49,7 +49,8 @@ void EOS_JWL::Write(ofstream& os)
     os << _A << " " << _B << " " << _R1 << " " << _R2 << " " << _w << " " << _internal_energy_0 << endl << endl;
 }
 
-void EOS_JWL::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, MPM_FLOAT delta_ie)
+void EOS_JWL::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, 
+    MPM_FLOAT delta_ie, map<string, MPM_FLOAT>& transfer)
 {
     MPM_FLOAT V0 = pp->GetMass()/_density_0;
     MPM_FLOAT E = (pp->GetInternalEnergy() + delta_ie)/V0;

@@ -38,7 +38,8 @@ public:
     virtual void Write(ofstream &os) = 0;
 
     //!> Update the pressure of the particle
-    virtual void UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, MPM_FLOAT delta_ie) = 0;
+    virtual void UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, 
+        MPM_FLOAT delta_ie, map<string, MPM_FLOAT>& transfer) = 0;
 
     //!> Calculate the squared adabatic sound speed of EOS part
     virtual MPM_FLOAT SoundSpeedSquare_EOS(PhysicalProperty* pp) = 0;

@@ -30,7 +30,7 @@ public:
     ~Failure_PlaStrain();
 
     //!> Identify if the particle fails according to its physical property
-    virtual bool CheckFailure(PhysicalProperty* pp);
+    virtual bool CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer);
 
     //!> Write failure model information into file
     virtual void Write(ofstream &os);

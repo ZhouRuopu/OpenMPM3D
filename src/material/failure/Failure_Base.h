@@ -36,7 +36,7 @@ public:
     inline void SetErosion(bool erosion) {Erosion = erosion;};
 
     //!> Identify if the particle fails according to its physical property
-    virtual bool CheckFailure(PhysicalProperty* pp) = 0;
+    virtual bool CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer) = 0;
 
     //!> Write failure model information into file
     virtual void Write(ofstream &os) = 0;

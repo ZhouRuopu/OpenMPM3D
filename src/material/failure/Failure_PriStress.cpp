@@ -36,7 +36,7 @@ Failure_PriStress::~Failure_PriStress()
 {
 }
 
-bool Failure_PriStress::CheckFailure(PhysicalProperty* pp)
+bool Failure_PriStress::CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer)
 {
     Array3D principle_stress;
     MPM_FLOAT mean_stress = pp->GetMeanStress();
@@ -87,7 +87,7 @@ void Failure_PriStress::Write(ofstream &os)
     os << "PriStressMin: " << _min_principle_stress << endl;
     os << "PriStressMax: " << _max_principle_stress << endl;
     os << "ShearStressMax: " << _max_shear_stress << endl;
-    os << "Erosion: " << Erosion << endl;
+    os << "Erosion: " << Erosion << endl << endl;
 }
 
 bool Failure_PriStress::Initialize(map<string, MPM_FLOAT> &failure_para)
