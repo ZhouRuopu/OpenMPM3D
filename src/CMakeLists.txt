@@ -17,6 +17,9 @@ source_group(Sources\ Files\\MATERIAL\\STRENGTH FILES ${SRCS_STRENGTH})
 source_group(Sources\ Files\\MATERIAL\\EOS      FILES ${SRCS_EOS})
 source_group(Sources\ Files\\MATERIAL\\FAILURE  FILES ${SRCS_FAILURE})
 #------------------- body -----------------------------------------------#
+aux_source_directory(body                       SRCS_BODY)
+
+source_group(Sources\ Files\\BODY               FILES ${SRCS_BODY})
 
 #------------------- grid -----------------------------------------------#
 
@@ -29,7 +32,8 @@ set(SRC_LIST
     ${SRCS_MATERIAL}
     ${SRCS_STRENGTH}
     ${SRCS_EOS}
-    ${SRCS_FAILURE})
+    ${SRCS_FAILURE}
+    ${SRCS_BODY})
 #################### set include files ####################
 #------------------- main ----------------------------------------------#
 file(GLOB INCS_MPM3D                            main/*.h*)
@@ -46,6 +50,9 @@ source_group(Header\ Files\\MATERIAL\\STRENGTH  FILES ${INCS_STRENGTH})
 source_group(Header\ Files\\MATERIAL\\EOS       FILES ${INCS_EOS})
 source_group(Header\ Files\\MATERIAL\\FAILURE   FILES ${INCS_FAILURE})
 #------------------- body ----------------------------------------------#
+file(GLOB INCS_BODY                             body/*.h*)
+
+source_group(Header\ Files\\BODY                FILES ${INCS_BODY})
 
 #------------------- grid ----------------------------------------------#
 
@@ -58,7 +65,8 @@ set(INC_LIST
     ${INCS_MATERIAL}
     ${INCS_STRENGTH}
     ${INCS_EOS}
-    ${INCS_FAILURE})
+    ${INCS_FAILURE}
+    ${INCS_BODY})
 #################### compile procedure ####################
 set(MPM3D_BIN "MPM3D")
 
