@@ -77,3 +77,25 @@ void PhysicalProperty::AllocateMemoryForExtraParticleProperty(int number)
     for (int i = 0; i < number; i++)
         _extra_properties[i] = 0.0;
 }
+
+Array3D&& PhysicalProperty::CalculatePrincipleStress()
+{
+    MPM_FLOAT stress_x = _deviatoric_stress[0] + _mean_stress - _bulk_q;
+    MPM_FLOAT stress_y = _deviatoric_stress[1] + _mean_stress - _bulk_q;
+    MPM_FLOAT stress_z = _deviatoric_stress[2] + _mean_stress - _bulk_q;
+
+    MPM_FLOAT I_1 = stress_x + stress_y + stress_z;
+    MPM_FLOAT I_2 = -0.5*(I_1*I_1 - (stress_x*stress_x + stress_y*stress_y + stress_z*stress_z
+        + 2.0*(_deviatoric_stress[3]*_deviatoric_stress[3] + 
+               _deviatoric_stress[4]*_deviatoric_stress[4] + 
+               _deviatoric_stress[5]*_deviatoric_stress[5])));
+    MPM_FLOAT I_3 = stress_x*stress_y*stress_z + 
+        2.0*_deviatoric_stress[3]*_deviatoric_stress[4]*_deviatoric_stress[5]
+        - stress_x*_deviatoric_stress[3]*_deviatoric_stress[3] 
+        - stress_y*_deviatoric_stress[4]*_deviatoric_stress[4] 
+        - stress_z*_deviatoric_stress[5]*_deviatoric_stress[5];
+    
+    Array3D result;
+    CubicFunctionRoots(1.0, -I_1, -I_2, -I_3, result);
+    return move(result);
+}

@@ -45,7 +45,27 @@ public:
         _density = _mass/_volume;
     }
 
-    //!> various Get/Set function
+    //!> Calculate the principle stress
+    Array3D&& CalculatePrincipleStress();
+
+private:
+    MPM_FLOAT _mass;
+    MPM_FLOAT _volume;
+    MPM_FLOAT _density;
+    MPM_FLOAT _mean_stress;
+    SymTensor _deviatoric_stress;   //!< SDxx, SDyy, SDzz, SDyz, SDxz, SDxy in sequence
+    MPM_FLOAT _bulk_q;              //!< artificial bulk viscosity
+    MPM_FLOAT _internal_energy;
+    MPM_FLOAT _sound_speed;
+    bool _failure;
+    bool _eroded;
+
+    //!> Extra Particle Properties
+    MPM_FLOAT* _extra_properties;
+    int* _extra_property_positions;
+
+public:
+//!> various Get/Set function
     inline MPM_FLOAT GetMass() {return _mass;};
     inline void SetMass(MPM_FLOAT mass) {_mass = mass;};
 
@@ -75,21 +95,6 @@ public:
 
     inline bool is_Eroded() {return _eroded;};
     inline void Eroded() {_eroded = true;};
-private:
-    MPM_FLOAT _mass;
-    MPM_FLOAT _volume;
-    MPM_FLOAT _density;
-    MPM_FLOAT _mean_stress;
-    SymTensor _deviatoric_stress;   //!< SDxx, SDyy, SDzz, SDyz, SDxz, SDxy in sequence
-    MPM_FLOAT _bulk_q;              //!< artificial bulk viscosity
-    MPM_FLOAT _internal_energy;
-    MPM_FLOAT _sound_speed;
-    bool _failure;
-    bool _eroded;
-
-    //!> Extra Particle Properties
-    MPM_FLOAT* _extra_properties;
-    int* _extra_property_positions;
 };
 
 #endif
