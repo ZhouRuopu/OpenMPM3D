@@ -24,6 +24,13 @@ source_group(Sources\ Files\\BODY               FILES ${SRCS_BODY})
 #------------------- grid -----------------------------------------------#
 
 #------------------- solver ---------------------------------------------#
+aux_source_directory(solver                     SRCS_SOLVER)
+aux_source_directory(solver/contact             SRCS_CONTACT)
+aux_source_directory(solver/step                SRCS_STEP)
+
+source_group(Sources\ Files\\SOLVER             FILES ${SRCS_SOLVER})
+source_group(Sources\ Files\\SOLVER\\CONTACT    FILES ${SRCS_CONTACT})
+source_group(Sources\ Files\\SOLVER\\STEP       FILES ${SRCS_STEP})
 
 #------------------- utility --------------------------------------------#
 
@@ -33,7 +40,10 @@ set(SRC_LIST
     ${SRCS_STRENGTH}
     ${SRCS_EOS}
     ${SRCS_FAILURE}
-    ${SRCS_BODY})
+    ${SRCS_BODY}
+    ${SRCS_SOLVER}
+    ${SRCS_CONTACT}
+    ${SRCS_STEP})
 #################### set include files ####################
 #------------------- main ----------------------------------------------#
 file(GLOB INCS_MPM3D                            main/*.h*)
@@ -57,7 +67,13 @@ source_group(Header\ Files\\BODY                FILES ${INCS_BODY})
 #------------------- grid ----------------------------------------------#
 
 #------------------- solver --------------------------------------------#
+file(GLOB INCS_SOLVER                           solver/*.h*)
+file(GLOB INCS_CONTACT                          solver/contact/*.h*)
+file(GLOB INCS_STEP                             solver/step/*.h*)
 
+source_group(Header\ Files\\SOLVER              FILES ${INCS_SOLVER})
+source_group(Header\ Files\\SOLVER\\CONTACT     FILES ${INCS_CONTACT})
+source_group(Header\ Files\\SOLVER\\STEP        FILES ${INCS_STEP})
 #------------------- utility -------------------------------------------#
 
 set(INC_LIST
@@ -66,7 +82,10 @@ set(INC_LIST
     ${INCS_STRENGTH}
     ${INCS_EOS}
     ${INCS_FAILURE}
-    ${INCS_BODY})
+    ${INCS_BODY}
+    ${INCS_SOLVER}
+    ${INCS_CONTACT}
+    ${INCS_STEP})
 #################### compile procedure ####################
 set(MPM3D_BIN "MPM3D")
 
