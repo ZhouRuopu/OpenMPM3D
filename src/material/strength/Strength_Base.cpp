@@ -13,37 +13,33 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Implementation of class 'EOS_Base'
+    Info: Implementation of class 'Strength_Base'
     Code-writter: Ruichen Ni
-    Date: 2022.10.4
+    Date: 2022.9.28
 ==============================================================*/
 
-#include "EOS_Base.h"
-EOS_Base::EOS_Base()
+#include "Strength_Base.h"
+
+Strength_Base::Strength_Base()
 {
     Type = "";
     _density_0 = 0.0;
-    _sound_speed_0 = 0.0;
-    _internal_energy_0 = 0.0;
-
-    ParameterMap_EOS["C0"] = &_sound_speed_0;
-    ParameterMap_EOS["E0"] = &_internal_energy_0;
 }
 
-EOS_Base::~EOS_Base()
+Strength_Base::~Strength_Base()
 {
 }
 
-bool EOS_Base::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0)
 {
-    for(map<string, MPM_FLOAT>::iterator iter = eos_para.begin(); 
-        iter != eos_para.end(); iter++)
+    for(map<string, MPM_FLOAT>::iterator iter = strength_para.begin(); 
+        iter != strength_para.end(); iter++)
     {
-        if(ParameterMap_EOS.find(iter->first) != ParameterMap_EOS.end())
-            *ParameterMap_EOS[iter->first] = iter->second;
+        if(ParameterMap_Strength.find(iter->first) != ParameterMap_Strength.end())
+            *ParameterMap_Strength[iter->first] = iter->second;
         else
         {
-            string error_msg = "Can't find the EOS model parameter " + iter->first + " at " + Type;
+            string error_msg = "Can't find the strength model parameter " + iter->first + " at " + Type;
             MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
             return false;
         }

@@ -5,3 +5,5 @@
 #include "failure/Failure_PriStrain.h"
 
 #include "failure/Failure_PriStress.h"
+
+#include "failure/Failure_Damage_JhonsonCook.h"
