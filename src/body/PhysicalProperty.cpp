@@ -105,3 +105,39 @@ void PhysicalProperty::DeviatoricStressMultiplyScalar(MPM_FLOAT scalar)
     for (auto& element : _deviatoric_stress)
         element *= scalar;
 }
+
+void PhysicalProperty::StressRotationJaumann(SymTensor& vortex)
+{
+    SymTensor sigma, rotated;
+    Array3D q;
+
+    sigma[0] = _deviatoric_stress[0] + _mean_stress;
+    sigma[1] = _deviatoric_stress[1] + _mean_stress;
+    sigma[2] = _deviatoric_stress[2] + _mean_stress;
+    sigma[3] = _deviatoric_stress[3];
+    sigma[4] = _deviatoric_stress[4];
+    sigma[5] = _deviatoric_stress[5];
+
+    q[0] = 2.0*sigma[5]*vortex[2];
+    q[1] = 2.0*sigma[4]*vortex[1];
+    q[2] = 2.0*sigma[3]*vortex[0];
+
+    rotated[0] = - q[0] + q[1];
+    rotated[1] = + q[0] - q[2];
+    rotated[2] = - q[1] + q[2];
+    rotated[3] = vortex[0]*(sigma[1] - sigma[2]) + vortex[2]*sigma[4] - vortex[1]*sigma[5];
+    rotated[4] = vortex[1]*(sigma[2] - sigma[0]) + vortex[0]*sigma[5] - vortex[2]*sigma[3];
+    rotated[5] = vortex[2]*(sigma[0] - sigma[1]) + vortex[1]*sigma[3] - vortex[0]*sigma[4];
+
+    for (int i = 0; i < 6; i++)
+        sigma[i] += rotated[i];
+    
+    _mean_stress = (sigma[0] + sigma[1] + sigma[2])/3.0;
+
+    _deviatoric_stress[0] = sigma[0] - _mean_stress;
+    _deviatoric_stress[1] = sigma[1] - _mean_stress;
+    _deviatoric_stress[2] = sigma[2] - _mean_stress;
+    _deviatoric_stress[3] = sigma[3];
+    _deviatoric_stress[4] = sigma[4];
+    _deviatoric_stress[5] = sigma[5];
+}

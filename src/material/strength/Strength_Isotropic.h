@@ -13,27 +13,22 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Base class definition for strength behavior of 
-        material
+    Info: Base class definition for Isotropic strength behavior 
+        of material
     Code-writter: Ruichen Ni
-    Date: 2022.9.28
+    Date: 2022.10.9
 ==============================================================*/
 
-#ifndef _STRENGTH_BASE_H
-#define _STRENGTH_BASE_H
+#ifndef _STRENGTH_ISOTROPIC_H_
+#define _STRENGTH_ISOTROPIC_H_
 
-#include "../../main/MPM3D_MACRO.h"
-#include "../../body/PhysicalProperty.h"
+#include "Strength_Base.h"
 
-class Strength_Base
+class Strength_Isotropic:public Strength_Base
 {
 public:
-    Strength_Base();
-    ~Strength_Base();
-
-    inline string GetName() {return Type;}
-
-    inline void SetComputeTemperature(bool temperature_computed) {_compute_temperature = temperature_computed;}
+    Strength_Isotropic();
+    ~Strength_Isotropic();
 
     //!> Initial the strength model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0);
@@ -51,10 +46,10 @@ public:
         map<string, MPM_FLOAT>& transfer) = 0;
 
     //!> Calculate the squared adabatic sound speed of deviatoric part
-    virtual MPM_FLOAT SoundSpeedSquare_Strength(PhysicalProperty* pp) = 0;
+    virtual MPM_FLOAT SoundSpeedSquare_Strength(PhysicalProperty* pp);
 
     //!> Calculate the squared adabatic sound speed of elastic part
-    virtual MPM_FLOAT SoundSpeedSquare_Elastic(PhysicalProperty* pp) = 0;
+    virtual MPM_FLOAT SoundSpeedSquare_Elastic(PhysicalProperty* pp);
 
     //!> Update the temperature of the particle
     virtual void UpdateTemperature(PhysicalProperty* pp, bool yield, MPM_FLOAT delta_vol,
@@ -63,13 +58,19 @@ public:
     //!> Add extra particle properties based on different strength model
     virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp) = 0;
 protected:
-    string Type;
-    MPM_FLOAT _density_0;       //!< initial density
+    //!> Isotropic constitution consists of two parameters
+    //!>    Young's Modulus and Poisson Rate
+    MPM_FLOAT _Young_Modulus;
+    MPM_FLOAT _Poisson_Rate;
 
-    bool _compute_temperature;  //!< Whether to update temperature or not
+    //!> Other parameters obtained by calculations of Young's Modulus and Poisson Rate
+    MPM_FLOAT _shear_modulus;
+    MPM_FLOAT _volumetric_modulus;
 
-    //!> Parameter list for initialization
-    map<string, MPM_FLOAT*> ParameterMap_Strength;
+    //!> Parameters corresponding temperature
+    MPM_FLOAT _specific_heat;
+    MPM_FLOAT _temperature_coefficient;
+    MPM_FLOAT _room_temperature;
 };
 
 #endif

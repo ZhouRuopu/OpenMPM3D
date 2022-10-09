@@ -24,6 +24,7 @@ Strength_Base::Strength_Base()
 {
     Type = "";
     _density_0 = 0.0;
+    _compute_temperature = false;
 }
 
 Strength_Base::~Strength_Base()

@@ -45,12 +45,20 @@ public:
         _density = _mass/_volume;
     }
 
+    inline void UpdateVolume_Exponent(MPM_FLOAT (&de)[6])
+    {
+        _volume *= exp(de[0] + de[1] + de[2]);
+        _density = _mass/_volume;
+    }
+
     //!> Calculate the principle stress
     Array3D&& CalculatePrincipleStress();
 
     //!> Multiply the deviatoric stress with a scalar
     void DeviatoricStressMultiplyScalar(MPM_FLOAT scalar);
 
+    //!> Rotate the stress with Jaumann rate
+    void StressRotationJaumann(SymTensor& vortex);
 private:
     MPM_FLOAT _mass;
     MPM_FLOAT _volume;
