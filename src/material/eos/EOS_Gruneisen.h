@@ -48,13 +48,6 @@ private:
     MPM_FLOAT _gamma0;  //!< Initial Gruneisen gamma: _gamma0 ~ 2*_s - 1
     
     MPM_FLOAT _impendence_0;    //!< rho0*c0*c0
-
-    //!> default 0.9. pressure -> \infty when mu -> 1/(s-1). 
-    //!> If mu > _cutoff/(s-1), use linear interpolation to update pressure
-    MPM_FLOAT _cutoff;  
-    MPM_FLOAT _mu_cutoff;
-    MPM_FLOAT _pH_cutoff;
-    MPM_FLOAT _DpH_cutoff;
 };
 
 #endif

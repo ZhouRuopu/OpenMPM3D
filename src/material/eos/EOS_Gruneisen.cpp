@@ -23,11 +23,9 @@
 EOS_Gruneisen::EOS_Gruneisen()
 {
     Type = "Mie-Gruneisen EOS";
-    _cutoff = 0.9;
 
     ParameterMap_EOS["S1"] = &_s;
     ParameterMap_EOS["gamma0"] = &_gamma0;
-    ParameterMap_EOS["cutoff"] = &_cutoff;
 }
 
 EOS_Gruneisen::~EOS_Gruneisen()
@@ -47,11 +45,6 @@ bool EOS_Gruneisen::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
     }
 
     _impendence_0 = _density_0*_sound_speed_0*_sound_speed_0;
-    _mu_cutoff = _cutoff/(_s - 1.0);
-
-    MPM_FLOAT denominator = 1.0 - (_s - 1.0)*_mu_cutoff;
-    _pH_cutoff = _impendence_0*_mu_cutoff*(1.0 + _mu_cutoff)/(denominator*denominator);
-    _DpH_cutoff = _impendence_0*(1.0 + (_s + 1.0)*_mu_cutoff)/(denominator*denominator*denominator);
     
     return true;
 }
@@ -59,8 +52,8 @@ bool EOS_Gruneisen::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
 void EOS_Gruneisen::Write(ofstream& os)
 {
     os << "EOS Type: " << Type << endl;
-    os << "C0          S1          Gamma0          Cutoff" << endl;
-    os << _sound_speed_0 << " " << _s << " " << _gamma0 << " " << _cutoff << endl << endl;
+    os << "C0          S1          Gamma0" << endl;
+    os << _sound_speed_0 << " " << _s << " " << _gamma0 << endl << endl;
 }
 
 void EOS_Gruneisen::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_half, 
@@ -74,17 +67,8 @@ void EOS_Gruneisen::UpdatePressure(PhysicalProperty* pp, MPM_FLOAT delta_vol_hal
     MPM_FLOAT A;
     if (mu > MPM_EPSILON)
     {
-        MPM_FLOAT pH;
-        if (mu > _mu_cutoff)
-        {
-            pH = _pH_cutoff + _DpH_cutoff*(mu - _mu_cutoff);
-            pp->Failed();
-        }
-        else
-        {
-            MPM_FLOAT denominator = 1.0 - (_s - 1.0)*mu;
-            pH = _impendence_0*mu*(1.0 + mu)/(denominator*denominator);
-        }
+        MPM_FLOAT denominator = 1.0 - (_s - 1.0)*mu;
+        MPM_FLOAT pH = _impendence_0*mu*(1.0 + mu)/(denominator*denominator);
         A = pH*(1 - 0.5*gamma*mu);
     }
     else
