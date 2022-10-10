@@ -76,7 +76,7 @@ bool Failure_Damage_JohnsonCook::CheckFailure(PhysicalProperty* pp, map<string, 
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
     }
 
-    MPM_FLOAT sigma_star = pp->GetMeanStress()/((*pp)[MPM::Seqv] + MPM_EPSILON);
+    MPM_FLOAT sigma_star = pp->GetMeanStress()/(pp->GetEquivalentStress() + MPM_EPSILON);
     MPM_FLOAT strain_fracture = (_D1 + _D2*exp(_D3*sigma_star))*(1 + _D4*lsrate)*(1 + _D5*tstar);
 
     if (strain_fracture > MPM_EPSILON)
@@ -121,7 +121,6 @@ bool Failure_Damage_JohnsonCook::Initialize(map<string, MPM_FLOAT> &failure_para
 
 bool Failure_Damage_JohnsonCook::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
 {
-    ExtraProp.push_back(MPM::Seqv);
     ExtraProp.push_back(MPM::DMG);
     return true;
 }

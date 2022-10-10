@@ -141,3 +141,14 @@ void PhysicalProperty::StressRotationJaumann(SymTensor& vortex)
     _deviatoric_stress[4] = sigma[4];
     _deviatoric_stress[5] = sigma[5];
 }
+
+void PhysicalProperty::EquivalentStress()
+{
+    MPM_FLOAT J2 = 0.5*(_deviatoric_stress[0]*_deviatoric_stress[0] + 
+                        _deviatoric_stress[1]*_deviatoric_stress[1] +
+                        _deviatoric_stress[2]*_deviatoric_stress[2]) +
+                    _deviatoric_stress[3]*_deviatoric_stress[3] +
+                    _deviatoric_stress[4]*_deviatoric_stress[4] +
+                    _deviatoric_stress[5]*_deviatoric_stress[5];
+    _equivalent_stress = sqrt(J2*3.0);
+}
