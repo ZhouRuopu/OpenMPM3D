@@ -52,8 +52,12 @@ public:
     virtual MPM_FLOAT SoundSpeedSquare_Elastic(PhysicalProperty* pp);
 
     //!> Update the temperature of the particle
-    virtual void UpdateTemperature(PhysicalProperty* pp, bool yield, MPM_FLOAT delta_vol,
+    virtual void UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer) = 0;
+
+    //!> Add extra particle properties based on different strength model
+    virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer);
 protected:
     //!> Isotropic constitution consists of two parameters
     //!>    Young's Modulus and Poisson Rate
@@ -68,6 +72,18 @@ protected:
     MPM_FLOAT _specific_heat;
     MPM_FLOAT _temperature_coefficient;
     MPM_FLOAT _room_temperature;
+
+//!> Duplicated codes used in sub-class, don't override or change this function
+//!> When you want to change the codes of this part, it means that the procedures of 
+//!>    your "UpdateDeviatoricStress" or "ElasticPressure" is different from common
+//!>    material type. Then just override the above functions of "UpdateDeviatoricStress" 
+//!>    or "ElasticPressure".
+protected:
+    //!> Update the deviatoric stress with elastic trial
+    void _ElasticDeviatoricStress(PhysicalProperty* pp, SymTensor& delta_strain);
+
+    //!> Simplest elastic pressure calculation method
+    void _ElasticPressure(PhysicalProperty* pp, MPM_FLOAT delta_vol);
 };
 
 #endif

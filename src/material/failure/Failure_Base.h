@@ -45,7 +45,8 @@ public:
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
 
     //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
+    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer);
 protected:
     string Type;                            //!< Failure Behavior Type
     bool Erosion;                           //!< whether to erode particles when failed

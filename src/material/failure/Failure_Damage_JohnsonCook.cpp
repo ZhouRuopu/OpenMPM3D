@@ -119,7 +119,8 @@ bool Failure_Damage_JohnsonCook::Initialize(map<string, MPM_FLOAT> &failure_para
     return true;
 }
 
-bool Failure_Damage_JohnsonCook::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
+bool Failure_Damage_JohnsonCook::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer)
 {
     ExtraProp.push_back(MPM::DMG);
     return true;

@@ -119,7 +119,8 @@ bool Failure_PriStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
     return true;
 }
 
-bool Failure_PriStrain::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
+bool Failure_PriStrain::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer)
 {
     ExtraProp.push_back(MPM::Exx);
     ExtraProp.push_back(MPM::Exy);

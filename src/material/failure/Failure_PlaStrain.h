@@ -39,7 +39,8 @@ public:
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
 
     //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
+    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer);
 private:
     //!> Threshold of effective plastic strain
     MPM_FLOAT _epmax;

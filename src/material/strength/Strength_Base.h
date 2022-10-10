@@ -57,11 +57,12 @@ public:
     virtual MPM_FLOAT SoundSpeedSquare_Elastic(PhysicalProperty* pp) = 0;
 
     //!> Update the temperature of the particle
-    virtual void UpdateTemperature(PhysicalProperty* pp, bool yield, MPM_FLOAT delta_vol,
+    virtual void UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer) = 0;
 
     //!> Add extra particle properties based on different strength model
-    virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp);
+    virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer);
 protected:
     string Type;
     MPM_FLOAT _density_0;       //!< initial density

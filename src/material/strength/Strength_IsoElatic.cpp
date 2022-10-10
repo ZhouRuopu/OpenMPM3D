@@ -45,16 +45,7 @@ void Strength_IsoElastic::Write(ofstream& os)
 void Strength_IsoElastic::UpdateDeviatoricStress(PhysicalProperty* pp, SymTensor& delta_strain, 
         SymTensor& delta_vortex, map<string, MPM_FLOAT>& transfer)
 {
-    MPM_FLOAT delta_strain_mean = (delta_strain[0] + delta_strain[1] + delta_strain[2])/3.0;
-
-    SymTensor deviatoric_stress = pp->GetDeviatoricStress();
-    deviatoric_stress[0] += 2.0*_shear_modulus*(delta_strain[0] - delta_strain_mean);
-    deviatoric_stress[1] += 2.0*_shear_modulus*(delta_strain[1] - delta_strain_mean);
-    deviatoric_stress[2] += 2.0*_shear_modulus*(delta_strain[2] - delta_strain_mean);
-    deviatoric_stress[3] += _shear_modulus*delta_strain[3];
-    deviatoric_stress[4] += _shear_modulus*delta_strain[4];
-    deviatoric_stress[5] += _shear_modulus*delta_strain[5];
-    pp->SetDeviatoricStress(deviatoric_stress);
+    _ElasticDeviatoricStress(pp, delta_strain);
 
     pp->EquivalentStress();
 }
@@ -62,31 +53,12 @@ void Strength_IsoElastic::UpdateDeviatoricStress(PhysicalProperty* pp, SymTensor
 void Strength_IsoElastic::ElasticPressure(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer)
 {
-    if (_compute_temperature)
-    {
-        MPM_FLOAT origin_volume = pp->GetMass()/_density_0;
-        MPM_FLOAT mean_stress = _volumetric_modulus*(pp->GetVolume() - origin_volume)/origin_volume - 
-            _temperature_coefficient*((*pp)[MPM::kelvin] - _room_temperature);
-        pp->SetMeanStress(mean_stress);
-    }
-    else
-    {
-        MPM_FLOAT mean_stress = pp->GetMeanStress();
-        mean_stress += _volumetric_modulus*delta_vol;
-        pp->SetMeanStress(mean_stress);
-    }
+    _ElasticPressure(pp, delta_vol);
 }
 
-void Strength_IsoElastic::UpdateTemperature(PhysicalProperty* pp, bool yield, MPM_FLOAT delta_vol,
+void Strength_IsoElastic::UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer)
 {
     if (_compute_temperature)
         (*pp)[MPM::kelvin] -= _temperature_coefficient*(*pp)[MPM::kelvin]*delta_vol/pp->GetDensity()/_specific_heat;
-}
-
-bool Strength_IsoElastic::AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp)
-{
-    if (_compute_temperature)
-        ExtraProp.push_back(MPM::kelvin);
-    return true;
 }

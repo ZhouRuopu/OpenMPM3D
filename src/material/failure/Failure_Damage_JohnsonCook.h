@@ -40,7 +40,8 @@ public:
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
 
     //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
+    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer);
 private:
     //!> Parameters for damage update
     MPM_FLOAT _D1, _D2, _D3, _D4, _D5;

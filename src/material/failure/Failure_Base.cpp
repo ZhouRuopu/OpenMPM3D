@@ -47,7 +47,8 @@ bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para)
     return true;
 }
 
-bool Failure_Base::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
+bool Failure_Base::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer)
 {
     // Nothing needs to be added
     return true;

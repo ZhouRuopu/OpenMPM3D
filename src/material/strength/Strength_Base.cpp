@@ -50,7 +50,8 @@ bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT 
     return true;
 }
 
-bool Strength_Base::AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp)
+bool Strength_Base::AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp,
+        map<string, MPM_FLOAT>& transfer)
 {
     // Nothing to be added
     return true;
