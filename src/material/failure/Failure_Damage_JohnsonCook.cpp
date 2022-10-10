@@ -45,36 +45,9 @@ bool Failure_Damage_JohnsonCook::CheckFailure(PhysicalProperty* pp, map<string, 
     if (pp->is_Failed())
         return true;
     
-    MPM_FLOAT lsrate;   //!< log(strain rate)
-    MPM_FLOAT tstar;    //!< dimensionless temperature
-    MPM_FLOAT depeff;   //!< plastic strain increment
-    map<string, MPM_FLOAT>::iterator iter;
-    iter = transfer.find("lsrate");
-    if (iter != transfer.end())
-        lsrate = iter->second;
-    else
-    {
-        string error_msg = "*** Error *** Variable of lsrate needs to be transferred to Failure Type: " + Type;
-        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
-    }
-
-    iter = transfer.find("tstar");
-    if (iter != transfer.end())
-        tstar = iter->second;
-    else
-    {
-        string error_msg = "*** Error *** Variable of tstar needs to be transferred to Failure Type: " + Type;
-        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
-    }
-
-    iter = transfer.find("depeff");
-    if (iter != transfer.end())
-        depeff = iter->second;
-    else
-    {
-        string error_msg = "*** Error *** Variable of depeff needs to be transferred to Failure Type: " + Type;
-        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
-    }
+    MPM_FLOAT lsrate = transfer["lsrate"];      //!< log(strain rate)
+    MPM_FLOAT tstar = transfer["tstar"];        //!< dimensionless temperature
+    MPM_FLOAT depeff = transfer["depeff"];      //!< plastic strain increment
 
     MPM_FLOAT sigma_star = pp->GetMeanStress()/(pp->GetEquivalentStress() + MPM_EPSILON);
     MPM_FLOAT strain_fracture = (_D1 + _D2*exp(_D3*sigma_star))*(1 + _D4*lsrate)*(1 + _D5*tstar);
