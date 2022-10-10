@@ -52,3 +52,9 @@ bool EOS_Base::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
     _density_0 = rho0;
     return true;
 }
+
+bool EOS_Base::AddExtraParticleProperty_EOS(vector<MPM::ExtraParticleProperty> &ExtraProp)
+{
+    // Nothing needs to be added
+    return true;
+}

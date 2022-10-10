@@ -43,6 +43,9 @@ public:
 
     //!> Calculate the squared adabatic sound speed of EOS part
     virtual MPM_FLOAT SoundSpeedSquare_EOS(PhysicalProperty* pp) = 0;
+
+    //!> Add extra particle properties based on different failure model
+    virtual bool AddExtraParticleProperty_EOS(vector<MPM::ExtraParticleProperty> &ExtraProp);
 protected:
     string Type;
     MPM_FLOAT _density_0;           //!< initial density

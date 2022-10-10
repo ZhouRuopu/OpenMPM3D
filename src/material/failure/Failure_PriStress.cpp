@@ -107,9 +107,3 @@ bool Failure_PriStress::Initialize(map<string, MPM_FLOAT> &failure_para)
     }
     return true;
 }
-
-bool Failure_PriStress::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
-{
-    // Nothing needs to be added
-    return true;
-}

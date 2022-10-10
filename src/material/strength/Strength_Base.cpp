@@ -49,3 +49,9 @@ bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT 
     _density_0 = rho0;
     return true;
 }
+
+bool Strength_Base::AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp)
+{
+    // Nothing to be added
+    return true;
+}

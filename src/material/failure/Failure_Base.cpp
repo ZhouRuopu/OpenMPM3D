@@ -46,3 +46,9 @@ bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para)
     }
     return true;
 }
+
+bool Failure_Base::AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp)
+{
+    // Nothing needs to be added
+    return true;
+}

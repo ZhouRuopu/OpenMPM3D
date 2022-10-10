@@ -18,7 +18,7 @@
     Date: 2022.9.28
 ==============================================================*/
 
-#include "Failure_Damage_JhonsonCook.h"
+#include "Failure_Damage_JohnsonCook.h"
 
 Failure_Damage_JohnsonCook::Failure_Damage_JohnsonCook()
 {

@@ -38,9 +38,6 @@ public:
 
     //!> Initial the Failure model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
-
-    //!> Add extra particle properties based on different failure model
-    virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp);
 private:
     //!> Threshold of principle stress
     MPM_FLOAT _min_principle_stress;

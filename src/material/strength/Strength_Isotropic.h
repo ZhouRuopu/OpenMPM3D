@@ -54,9 +54,6 @@ public:
     //!> Update the temperature of the particle
     virtual void UpdateTemperature(PhysicalProperty* pp, bool yield, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer) = 0;
-
-    //!> Add extra particle properties based on different strength model
-    virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp) = 0;
 protected:
     //!> Isotropic constitution consists of two parameters
     //!>    Young's Modulus and Poisson Rate
