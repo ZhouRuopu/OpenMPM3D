@@ -7,3 +7,5 @@
 #include "eos/EOS_SimpleGruneisen.h"
 
 #include "eos/EOS_JWL.h"
+
+#include "eos/EOS_HighExpBurn.h"
