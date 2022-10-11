@@ -105,3 +105,23 @@ void Strength_Isotropic::_ElasticPressure(PhysicalProperty* pp, MPM_FLOAT delta_
         pp->SetMeanStress(mean_stress);
     }
 }
+
+void Strength_Isotropic::_DamageDeviatoricStress(PhysicalProperty* pp, SymTensor& delta_strain)
+{
+    MPM_FLOAT damage_shear_modulus;
+    if (pp->GetMeanStress() - pp->GetBulkViscosity() >= -MPM_EPSILON)   //!< Tension
+        damage_shear_modulus = _shear_modulus*(1 - (*pp)[MPM::DMG]);
+    else                                                                //!< Compression
+        damage_shear_modulus = _shear_modulus;
+
+    MPM_FLOAT delta_strain_mean = (delta_strain[0] + delta_strain[1] + delta_strain[2])/3.0;
+
+    SymTensor deviatoric_stress = pp->GetDeviatoricStress();
+    deviatoric_stress[0] += 2.0*damage_shear_modulus*(delta_strain[0] - delta_strain_mean);
+    deviatoric_stress[1] += 2.0*damage_shear_modulus*(delta_strain[1] - delta_strain_mean);
+    deviatoric_stress[2] += 2.0*damage_shear_modulus*(delta_strain[2] - delta_strain_mean);
+    deviatoric_stress[3] += damage_shear_modulus*delta_strain[3];
+    deviatoric_stress[4] += damage_shear_modulus*delta_strain[4];
+    deviatoric_stress[5] += damage_shear_modulus*delta_strain[5];
+    pp->SetDeviatoricStress(deviatoric_stress);
+}

@@ -84,6 +84,9 @@ protected:
 
     //!> Simplest elastic pressure calculation method
     void _ElasticPressure(PhysicalProperty* pp, MPM_FLOAT delta_vol);
+
+    //!> Update the deviatoric stress with damage
+    void _DamageDeviatoricStress(PhysicalProperty* pp, SymTensor& delta_strain);
 };
 
 #endif
