@@ -73,7 +73,7 @@ namespace MPM{
     };
 
     //!> Number of extra particle properties
-    const MPM_STATS ExtraParticlePropertySum = 10;
+    const MPM_STATS ExtraParticlePropertySum = 11;
     //!> Extra property list
     enum ExtraParticleProperty
     {
@@ -83,7 +83,8 @@ namespace MPM{
         epeff,              //!< effective plastic strian
         kelvin,             //!< absolute temperature
         DMG,                //!< cumulative damage for failure
-        sigma_y             //!< yield stress
+        sigma_y,            //!< yield stress
+        LT                  //!< light time for Explosive
     };
 }
 

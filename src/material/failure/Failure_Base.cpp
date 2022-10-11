@@ -37,6 +37,11 @@ bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para)
     {
         if(ParameterMap_Failure.find(iter->first) != ParameterMap_Failure.end())
             *ParameterMap_Failure[iter->first] = iter->second;
+        else if(iter->first == "Erosion")
+        {
+            if(iter->second > MPM_EPSILON)
+                Erosion = true;
+        }
         else
         {
             string error_msg = "Can't find the failure model parameter " + iter->first + " at " + Type;

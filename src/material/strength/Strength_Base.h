@@ -33,8 +33,6 @@ public:
 
     inline string GetName() {return Type;}
 
-    inline void SetComputeTemperature(bool temperature_computed) {_compute_temperature = temperature_computed;}
-
     //!> Initial the strength model with parameters' map
     virtual bool Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0);
 

@@ -38,6 +38,11 @@ bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT 
     {
         if(ParameterMap_Strength.find(iter->first) != ParameterMap_Strength.end())
             *ParameterMap_Strength[iter->first] = iter->second;
+        else if(iter->first == "ComputeTemperature")
+        {
+            if (iter->second > MPM_EPSILON)
+                _compute_temperature = true;
+        }
         else
         {
             string error_msg = "Can't find the strength model parameter " + iter->first + " at " + Type;

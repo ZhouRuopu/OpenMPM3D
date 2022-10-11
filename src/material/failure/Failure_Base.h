@@ -33,8 +33,6 @@ public:
 
     inline string GetName() {return Type;};
 
-    inline void SetErosion(bool erosion) {Erosion = erosion;};
-
     //!> Identify if the particle fails according to its physical property
     virtual bool CheckFailure(PhysicalProperty* pp, map<string, MPM_FLOAT>& transfer) = 0;
 
