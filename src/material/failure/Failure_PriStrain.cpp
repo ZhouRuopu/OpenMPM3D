@@ -19,6 +19,7 @@
 ==============================================================*/
 
 #include "Failure_PriStrain.h"
+#include "../../utility/MathFunctionList.h"
 
 Failure_PriStrain::Failure_PriStrain()
 {

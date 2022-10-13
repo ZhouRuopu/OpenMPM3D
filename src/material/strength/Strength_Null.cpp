@@ -129,4 +129,11 @@ void Strength_Null::UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer)
 {
     //!> Leave to be implemented
+    return;
+}
+
+void Strength_Null::ModifyPressureByTemperature(PhysicalProperty* pp)
+{
+    //!> Leave to be implemented
+    return;
 }

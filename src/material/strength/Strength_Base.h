@@ -58,6 +58,9 @@ public:
     virtual void UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer) = 0;
 
+    //!> Modify the mean stress with temperature coefficient
+    virtual void ModifyPressureByTemperature(PhysicalProperty* pp) = 0;
+
     //!> Add extra particle properties based on different strength model
     virtual bool AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp,
         map<string, MPM_FLOAT>& transfer);

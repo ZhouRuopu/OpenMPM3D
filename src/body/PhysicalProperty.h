@@ -38,18 +38,20 @@ public:
         return _extra_properties[_extra_property_positions[index]];
     }
 
-    //!> Update the volume based on the incremental volumetric strain
+    //!> Update the volume and density based on the incremental volumetric strain
     inline void UpdateVolume(MPM_FLOAT (&de)[6])
     {
         _volume *= (1 + de[0] + de[1] + de[2]);
-        _density = _mass/_volume;
+        UpdateDensity();
     }
 
     inline void UpdateVolume_Exponent(MPM_FLOAT (&de)[6])
     {
         _volume *= exp(de[0] + de[1] + de[2]);
-        _density = _mass/_volume;
+        UpdateDensity();
     }
+
+    inline void UpdateDensity() {_density = _mass/_volume;}
 
     //!> Calculate the principle stress
     Array3D&& CalculatePrincipleStress();
@@ -104,6 +106,7 @@ public:
 
     inline MPM_FLOAT GetInternalEnergy() {return _internal_energy;};
     inline void SetInternalEnergy(MPM_FLOAT ie) {_internal_energy = ie;};
+    inline void UpdateInternalEnergy(MPM_FLOAT delta_ie) {_internal_energy += delta_ie;}
 
     inline MPM_FLOAT GetSoundSpeed() {return _sound_speed;};
     inline void SetSoundSpeed(MPM_FLOAT c) {_sound_speed = c;};

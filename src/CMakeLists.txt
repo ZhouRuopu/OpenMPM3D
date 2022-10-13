@@ -3,36 +3,41 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
 #################### set source files ####################
 #------------------- main -----------------------------------------------#
-aux_source_directory(main                       SRCS_MPM3D)
+aux_source_directory(main                           SRCS_MPM3D)
 
-source_group(Sources\ Files\\MAIN               FILES ${SRCS_MPM3D})
+source_group(Sources\ Files\\MAIN                   FILES ${SRCS_MPM3D})
 #------------------- Material -------------------------------------------#
-aux_source_directory(material                   SRCS_MATERIAL)
-aux_source_directory(material/strength          SRCS_STRENGTH)
-aux_source_directory(material/eos               SRCS_EOS)
-aux_source_directory(material/failure           SRCS_FAILURE)
+aux_source_directory(material                       SRCS_MATERIAL)
+aux_source_directory(material/strength              SRCS_STRENGTH)
+aux_source_directory(material/eos                   SRCS_EOS)
+aux_source_directory(material/failure               SRCS_FAILURE)
 
-source_group(Sources\ Files\\MATERIAL           FILES ${SRCS_MATERIAL})
-source_group(Sources\ Files\\MATERIAL\\STRENGTH FILES ${SRCS_STRENGTH})
-source_group(Sources\ Files\\MATERIAL\\EOS      FILES ${SRCS_EOS})
-source_group(Sources\ Files\\MATERIAL\\FAILURE  FILES ${SRCS_FAILURE})
+source_group(Sources\ Files\\MATERIAL               FILES ${SRCS_MATERIAL})
+source_group(Sources\ Files\\MATERIAL\\STRENGTH     FILES ${SRCS_STRENGTH})
+source_group(Sources\ Files\\MATERIAL\\EOS          FILES ${SRCS_EOS})
+source_group(Sources\ Files\\MATERIAL\\FAILURE      FILES ${SRCS_FAILURE})
 #------------------- body -----------------------------------------------#
-aux_source_directory(body                       SRCS_BODY)
+aux_source_directory(body                           SRCS_BODY)
 
-source_group(Sources\ Files\\BODY               FILES ${SRCS_BODY})
+source_group(Sources\ Files\\BODY                   FILES ${SRCS_BODY})
 
 #------------------- grid -----------------------------------------------#
 
 #------------------- solver ---------------------------------------------#
-aux_source_directory(solver                     SRCS_SOLVER)
-aux_source_directory(solver/contact             SRCS_CONTACT)
-aux_source_directory(solver/step                SRCS_STEP)
+aux_source_directory(solver                         SRCS_SOLVER)
+aux_source_directory(solver/contact                 SRCS_CONTACT)
+aux_source_directory(solver/step                    SRCS_STEP)
 
-source_group(Sources\ Files\\SOLVER             FILES ${SRCS_SOLVER})
-source_group(Sources\ Files\\SOLVER\\CONTACT    FILES ${SRCS_CONTACT})
-source_group(Sources\ Files\\SOLVER\\STEP       FILES ${SRCS_STEP})
+source_group(Sources\ Files\\SOLVER                 FILES ${SRCS_SOLVER})
+source_group(Sources\ Files\\SOLVER\\CONTACT        FILES ${SRCS_CONTACT})
+source_group(Sources\ Files\\SOLVER\\STEP           FILES ${SRCS_STEP})
 
 #------------------- utility --------------------------------------------#
+aux_source_directory(utility                        SRCS_UTILITY)
+aux_source_directory(utility/mathfunction           SRCS_MATHFUNCTION)
+
+source_group(Sources\ Files\\UTILITY                FILES ${SRCS_UTILITY})
+source_group(Sources\ Files\\UTILITY\\MATHFUNCTION  FILES ${SRCS_MATHFUNCTION})
 
 set(SRC_LIST
     ${SRCS_MPM3D}
@@ -43,38 +48,45 @@ set(SRC_LIST
     ${SRCS_BODY}
     ${SRCS_SOLVER}
     ${SRCS_CONTACT}
-    ${SRCS_STEP})
+    ${SRCS_STEP}
+    ${SRCS_UTILITY}
+    ${SRCS_MATHFUNCTION})
 #################### set include files ####################
 #------------------- main ----------------------------------------------#
-file(GLOB INCS_MPM3D                            main/*.h*)
+file(GLOB INCS_MPM3D                                main/*.h*)
 
-source_group(Header\ Files\\MAIN                FILES ${INCS_MPM3D})
+source_group(Header\ Files\\MAIN                    FILES ${INCS_MPM3D})
 #------------------- Material ------------------------------------------#
-file(GLOB INCS_MATERIAL                         material/*.h*)
-file(GLOB INCS_STRENGTH                         material/strength/*.h*)
-file(GLOB INCS_EOS                              material/eos/*.h*)
-file(GLOB INCS_FAILURE                          material/failure/*.h*)
+file(GLOB INCS_MATERIAL                             material/*.h*)
+file(GLOB INCS_STRENGTH                             material/strength/*.h*)
+file(GLOB INCS_EOS                                  material/eos/*.h*)
+file(GLOB INCS_FAILURE                              material/failure/*.h*)
 
-source_group(Header\ Files\\MATERIAL            FILES ${INCS_MATERIAL})
-source_group(Header\ Files\\MATERIAL\\STRENGTH  FILES ${INCS_STRENGTH})
-source_group(Header\ Files\\MATERIAL\\EOS       FILES ${INCS_EOS})
-source_group(Header\ Files\\MATERIAL\\FAILURE   FILES ${INCS_FAILURE})
+source_group(Header\ Files\\MATERIAL                FILES ${INCS_MATERIAL})
+source_group(Header\ Files\\MATERIAL\\STRENGTH      FILES ${INCS_STRENGTH})
+source_group(Header\ Files\\MATERIAL\\EOS           FILES ${INCS_EOS})
+source_group(Header\ Files\\MATERIAL\\FAILURE       FILES ${INCS_FAILURE})
 #------------------- body ----------------------------------------------#
-file(GLOB INCS_BODY                             body/*.h*)
+file(GLOB INCS_BODY                                 body/*.h*)
 
-source_group(Header\ Files\\BODY                FILES ${INCS_BODY})
+source_group(Header\ Files\\BODY                    FILES ${INCS_BODY})
 
 #------------------- grid ----------------------------------------------#
 
 #------------------- solver --------------------------------------------#
-file(GLOB INCS_SOLVER                           solver/*.h*)
-file(GLOB INCS_CONTACT                          solver/contact/*.h*)
-file(GLOB INCS_STEP                             solver/step/*.h*)
+file(GLOB INCS_SOLVER                               solver/*.h*)
+file(GLOB INCS_CONTACT                              solver/contact/*.h*)
+file(GLOB INCS_STEP                                 solver/step/*.h*)
 
-source_group(Header\ Files\\SOLVER              FILES ${INCS_SOLVER})
-source_group(Header\ Files\\SOLVER\\CONTACT     FILES ${INCS_CONTACT})
-source_group(Header\ Files\\SOLVER\\STEP        FILES ${INCS_STEP})
+source_group(Header\ Files\\SOLVER                  FILES ${INCS_SOLVER})
+source_group(Header\ Files\\SOLVER\\CONTACT         FILES ${INCS_CONTACT})
+source_group(Header\ Files\\SOLVER\\STEP            FILES ${INCS_STEP})
 #------------------- utility -------------------------------------------#
+file(GLOB INCS_UTILITY                              utility/*.h*)
+file(GLOB INCS_MATHFUNCTION                         utility/mathfunction/*.h*)
+
+source_group(Header\ Files\\UTILITY                 FILES ${INCS_UTILITY})
+source_group(Header\ Files\\UTILITY\\MATHFUNCTION   FILES ${INCS_MATHFUNCTION})
 
 set(INC_LIST
     ${INCS_MPM3D}
@@ -85,7 +97,9 @@ set(INC_LIST
     ${INCS_BODY}
     ${INCS_SOLVER}
     ${INCS_CONTACT}
-    ${INCS_STEP})
+    ${INCS_STEP}
+    ${INCS_UTILITY}
+    ${INCS_MATHFUNCTION})
 #################### compile procedure ####################
 set(MPM3D_BIN "MPM3D")
 

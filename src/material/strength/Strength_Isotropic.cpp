@@ -64,6 +64,15 @@ MPM_FLOAT Strength_Isotropic::SoundSpeedSquare_Elastic(PhysicalProperty* pp)
     return _volumetric_modulus/pp->GetDensity();
 }
 
+void Strength_Isotropic::ModifyPressureByTemperature(PhysicalProperty* pp)
+{
+    if (!_compute_temperature)
+        return;
+    MPM_FLOAT mean_stress = pp->GetMeanStress();
+    mean_stress -= _temperature_coefficient*((*pp)[MPM::kelvin] - _room_temperature);
+    pp->SetMeanStress(mean_stress);
+}
+
 bool Strength_Isotropic::AddExtraParticleProperty_Strength(vector<MPM::ExtraParticleProperty> &ExtraProp,
         map<string, MPM_FLOAT>& transfer)
 {

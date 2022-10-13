@@ -19,6 +19,7 @@
 ==============================================================*/
 
 #include "./PhysicalProperty.h"
+#include "../utility/MathFunctionList.h"
 
 PhysicalProperty::PhysicalProperty()
 {

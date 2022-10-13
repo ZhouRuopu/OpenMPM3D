@@ -54,6 +54,9 @@ public:
     //!> Update the temperature of the particle
     virtual void UpdateTemperature(PhysicalProperty* pp, MPM_FLOAT delta_vol,
         map<string, MPM_FLOAT>& transfer);
+
+    //!> Modify the mean stress with temperature coefficient
+    virtual void ModifyPressureByTemperature(PhysicalProperty* pp);
 private:
     MPM_FLOAT _mu;  //!< coefficient of deviatoric viscosity
     MPM_FLOAT _ck;  //!< consistency for non-Newtom fluid
