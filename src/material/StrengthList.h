@@ -13,3 +13,5 @@
 #include "strength/Strength_JohnsonCook.h"
 
 #include "strength/Strength_SimpleJohnsonCook.h"
+
+#include "strength/Strength_DruckerPrager.h"

@@ -81,6 +81,8 @@ bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& 
         _strength = new Strength_JohnsonCook;
     else if (strength_name == "SimJohnsonCook")
         _strength = new Strength_SimpleJohnsonCook;
+    else if (strength_name == "DruckerPrager")
+        _strength = new Strength_DruckerPrager;
     else if (strength_name == "Null")
         _strength = new Strength_Null;
     else
